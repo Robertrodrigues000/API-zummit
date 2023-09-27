@@ -66,9 +66,9 @@ class SimuladorController extends Controller
         if (\count($convenios)) {
             $arrayAux = [];
             foreach ($this->simulacao as $instituicao => $dados) {
-                $arrayAux[$instituicao] = array_filter($dados, function($item) use ($convenios) {
+                $arrayAux[$instituicao] = array_values(array_filter($dados, function($item) use ($convenios) {
                     return in_array($item['convenio'], $convenios);
-                });
+                }));
             }
             $this->simulacao = $arrayAux;
         }
@@ -79,10 +79,12 @@ class SimuladorController extends Controller
     {
         if ($quantidadeParcelas > 0) {
             $arrayAux = [];
+
             foreach ($this->simulacao as $instituicao => $dados) {
-                $arrayAux[$instituicao] = array_filter($dados, function($item) use ($quantidadeParcelas) {
+              
+                $arrayAux[$instituicao] = array_values(array_filter($dados, function($item) use ($quantidadeParcelas) {
                     return $item['parcelas'] === $quantidadeParcelas;
-                });
+                }));
             }
             $this->simulacao = $arrayAux;
         }
